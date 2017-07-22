@@ -1,0 +1,19 @@
+<div *ngIf="showWaitingUser; else userExists">
+  <h3>Authenticating user</h3>
+</div>
+
+<ng-template #userExists>
+  <div height="100%">
+
+    <div class="navbar-fixed-top">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="sidenav" [style.display]="sideNavDisplay">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div id="main" [style.marginLeft]="mainMarginLeft">
+      <app-group-display></app-group-display>
+    </div>
+
+  </div>
+</ng-template>

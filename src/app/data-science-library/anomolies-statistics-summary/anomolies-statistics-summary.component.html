@@ -1,0 +1,11 @@
+<div style="height: calc(100% - 60px); width: calc(100% - 30px); position: absolute;">
+    <canvas *ngIf="barChartData != null" style="height: 100%;" baseChart
+            [colors]="barChartColors"
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+</div>

@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10">
+        <select class="form-control" name="selectedDataPolicy" (change)="selectChanged()" [(ngModel)]="selectedDataPolicy">
+            <option *ngFor="let dataPolicy of dataPolicyList" [ngValue]="dataPolicy">{{dataPolicy.name}}</option>
+        </select>        
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="list-group-item list-group-item-success" (click)="AddPolicy()">New</button>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="selectedDataPolicy" class="col-md-12">
+      <app-data-policy-editor [dataPolicy]="selectedDataPolicy"></app-data-policy-editor>
+    </div>
+  </div>

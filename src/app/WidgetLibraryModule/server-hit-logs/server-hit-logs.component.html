@@ -1,0 +1,27 @@
+<div class="container-flid">
+  <app-network-diagram  *ngIf="rootNode"  (nodeSelect)="onNodeSelect($event)" [rootNode]="rootNode"></app-network-diagram>
+  <table class="table table-condensed table-bordered">
+    <tr>
+      <th>Policy</th>
+      <th>Key</th>
+      <th>Client</th>
+      <th>Status</th>
+      <th>Date</th>
+      <th>Refresh?</th>
+      <th>milliseconds</th>
+      <th>Message</th>
+    </tr>
+    <tr *ngFor="let ManagedCacheHitLog of ManagedCacheHitLogs">
+      <td >{{ManagedCacheHitLog.dataPolicy}}</td>
+      <td >{{ManagedCacheHitLog.key}}</td>
+      <td >{{ManagedCacheHitLog.client}}</td>
+      
+      <td >{{ManagedCacheHitLog.Status}}</td>
+      <td >{{ManagedCacheHitLog.dateTime}}</td>      
+      <td >{{ManagedCacheHitLog.cacheRefresh}}</td>
+      <td >{{ManagedCacheHitLog.elapsedMs}}</td>
+      <td >{{ManagedCacheHitLog.Message}}</td>
+    </tr>
+  </table>
+</div>
+

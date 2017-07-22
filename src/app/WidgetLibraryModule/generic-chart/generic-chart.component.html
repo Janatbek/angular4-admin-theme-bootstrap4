@@ -1,0 +1,18 @@
+<div *ngIf="dataRequestError; else next">
+  <app-data-error-display [dataRequestError]="dataRequestError" [parentConfig]="config"></app-data-error-display>
+</div>
+
+<ng-template #next>
+  <div *ngIf="displayDataSet;  else loading" style="display: block">
+    <!-- width="400" height="400"-->
+    <h3 *ngIf="errorMessage">{{errorMessage}}</h3>
+    <canvas id="myChart" *ngIf="dataSets" baseChart [datasets]="dataSets" [labels]="labels" [options]="options" [colors]="colors"
+      [legend]="legend" [chartType]="chartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+    <a href="#" id="canvas_link">save as image</a>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <fa [name]="'rocket'" [spin]=true></fa>
+  Loading data...
+</ng-template>

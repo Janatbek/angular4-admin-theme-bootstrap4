@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { GenericGroupedDataSideNavComponent } from './generic-grouped-data-side-nav.component';
+
+describe('GenericGroupedDataSideNavComponent', () => {
+  let component: GenericGroupedDataSideNavComponent;
+  let fixture: ComponentFixture<GenericGroupedDataSideNavComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ GenericGroupedDataSideNavComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(GenericGroupedDataSideNavComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

@@ -1,0 +1,72 @@
+<nav class="navbar navbar-toggleable-md navbar-light fixed-top" style="background-color: #f3f3f4;">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbars"
+    aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  <a class="navbar-brand" href="javascript:;">Engineering Web Platform</a>
+
+  <div class="collapse navbar-collapse" id="navbars">
+    <ul class="navbar-nav mr-auto">
+      <!-- Page Dropdown wrapper  -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle btn btn-secondary" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">Page</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a class="dropdown-item" (click)="Refresh()" href="javascript:;">Refresh</a>
+          <a class="dropdown-item" (click)="ConfigureWidgetLayout()" href="javascript:;">Configure Widget Layout</a>
+          <a class="dropdown-item" (click)="RefreshWidgetConfiguration()" href="javascript:;">Refresh Widgets</a>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-header">Widgets Per Row</div>
+          <div *ngFor="let perRow of widgetsPerRowList">
+            <a class="dropdown-item" href="javascript:;" (click)="SetWidth(perRow.name)">
+                  {{perRow.name}}
+                  <i class="fa fa-check" *ngIf="PerRow(perRow.name)"></i>
+                </a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-header">Quick Links</div>
+          <a class="dropdown-item" href="javascript:;" (click)="QuickLink('widgetstore')">Widget store</a>
+          <a class="dropdown-item" href="javascript:;" (click)="QuickLink('diagnostics')">Diagnostics</a>
+          <a class="dropdown-item" href="javascript:;" (click)="QuickLink('cachedatareport')">Cached Data Report</a>
+        </div>
+      </li>
+      <!-- End of Page Dropdown wrapper  -->
+      <!-- ============================  -->
+      <!-- Cache Section Wrapper  -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle btn btn-secondary" href="http://example.com" id="dropdown02" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">Cache</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown02">
+          <div *ngFor="let policy of cachePolicyList">
+            <a class="dropdown-item" href="javascript:;" (click)="SetCachePolicy(policy.name)">{{policy.value}} <i class="fa fa-check" *ngIf="CachePolicyIs(policy.name)"></i></a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:;" (click)="ClearLocalCache()">Clear Local Cache</a>
+        </div>
+      </li>
+      <!-- End of Cache Section Wrapper  -->
+      <li *ngIf="isAdmin" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle btn btn-secondary" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">Admin</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a class="dropdown-item" (click)="QuickLink('platformconfig')" href="javascript:;">Platform Configuration</a>
+          <a class="dropdown-item" (click)="SetAdminRights(false)" href="javascript:;">Set Admin Off</a>
+          <a class="dropdown-item" (click)="SetAdminRights(true)" href="javascript:;">Set Admin On</a>
+          <a class="dropdown-item" (click)="RaiseAToast()" href="javascript:;">Raise a toast</a>
+        </div>
+
+      </li>
+
+    </ul>
+    <!-- Users field  -->
+    <div class="my-2 my-lg-0">
+      <p *ngIf="User; else NotLoggedIn" class=" navbar-text">Signed in as {{User}}</p>
+      <p *ngIf="isAdmin" class=" navbar-text">(Admin)</p>
+      <ng-template #NotLoggedIn>
+        <p class=" navbar-text">Obtaining user credentials...</p>
+      </ng-template>
+    </div>
+    <!-- End of Users field  -->
+  </div>
+
+</nav>

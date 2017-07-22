@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { FilterRuleEditorComponent } from './filter-rule-editor.component';
+
+describe('FilterRuleEditorComponent', () => {
+  let component: FilterRuleEditorComponent;
+  let fixture: ComponentFixture<FilterRuleEditorComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ FilterRuleEditorComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(FilterRuleEditorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

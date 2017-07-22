@@ -1,0 +1,14 @@
+.margin-top-10{
+    margin-top: 10px;
+}
+
+.remove-card-block-padding{
+    padding: 0;
+}
+
+a {
+    color: inherit;
+}
+a:focus, a:hover {
+    text-decoration: none;
+}

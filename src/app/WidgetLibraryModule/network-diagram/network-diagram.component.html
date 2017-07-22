@@ -1,0 +1,24 @@
+<!--<svg style="width: 1200px; height: 1500px;">-->
+<div style="overflow: auto">
+<svg [ngStyle]="{'width': '100%', 'height': svgHeight }" >
+  <svg:rect *ngFor="let r of rectangles"
+    [attr.x]="r.x" [attr.y]="r.y" [attr.width]="r.width" [attr.height]="r.height"
+    [ngStyle]="{'fill': r.color, 'stroke': 'gray', 'stroke-width': '1', 'fill-opacity': '0.1', 'stroke-opacity': '0.9'}" />
+
+  <!-- [attr:clip-path]="'url(#' + r.x + '' + r.y + '' + r.width + '' + r.height + ')'" -->
+  <svg:text *ngFor="let r of rectangles"
+    (click)="selectNode(r.source)"
+    [attr.x]="r.x + 1" [attr.y]="r.y + 14" font-size="13">{{r.displayText}}  {{r.Badge}}
+    <title>{{r.text}}</title>
+  </svg:text>
+
+  <svg:line *ngFor="let r of lines" [attr.x1]="r.x1" [attr.y1]="r.y1" [attr.x2]="r.x2" [attr.y2]="r.y2" stroke-width="1" stroke="gray"/>
+
+  <!--<svg:rect *ngFor="let r of rectangles"
+    (click)="selectNode(r.source)"
+    [attr.x]="r.x + 2" [attr.y]="r.y + 2" width="10" [attr.height]="r.height - 4"
+    [ngStyle]="{'fill': 'blue', 'stroke': 'black', 'stroke-width': '1'}" >
+    <title>{{r.text}}</title>
+  </svg:rect>-->
+</svg>
+</div>

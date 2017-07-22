@@ -1,0 +1,23 @@
+.images {
+  float: left;
+  margin: 10px;
+  width: 750px;
+  height: 750px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.sliders {
+ margin-left: 750px;
+}
+
+.img {
+    position:absolute;
+    left:0px;
+    top: 0px;
+    width: 750px;
+  height: 750px;
+}
+
+md-slider {
+    width: 300px;
+}

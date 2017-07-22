@@ -1,0 +1,35 @@
+import { DisplayStateService } from 'app/common/services/DisplayStateService';
+import { GroupKeyVisibleFilterPipe } from '../GroupKeyVisibleFilterPipe';
+/* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+
+import { RecursivePanelComponent } from './recursive-panel.component';
+
+describe('RecursivePanelComponent', () => {
+  let component: RecursivePanelComponent;
+  let fixture: ComponentFixture<RecursivePanelComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ RecursivePanelComponent, GroupKeyVisibleFilterPipe ],
+      providers: [DisplayStateService]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(RecursivePanelComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+class FakeDisplayStateService {
+  
+}

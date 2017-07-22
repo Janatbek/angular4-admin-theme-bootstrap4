@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="images">
+    <div class="fill">
+        <img [(style.opacity)]="originalOpacity" src="assets/images/SCRATCHED_[DIE_IMG]_viz.jpg"  id="original_img" class="img"/>
+    </div>
+    <div class="fill">
+        <img [(style.opacity)]="contrastOpacity" src="assets/images/SCRATCHED_[NORMED_IMG]_viz.jpg"  alt="" id="normed_img" class="img"/>
+    </div>
+    <div class="fill">
+        <img [(style.opacity)]="explanOpacity" src="assets/images/SCRATCHED_[VIZ_IMG]_viz.jpg" id="viz_img" class="img"/>
+    </div>
+    <div class="fill">
+        <img [(style.opacity)]="predOpacity" src="assets/images/SCRATCHED_[Y_hat]_viz.png"  id="distribution_img" class="img"/>
+    </div>
+</div>
+<div class="sliders">
+    <h4>Original</h4>
+     <md-slider min="0" max="1" step=".01" [(ngModel)]="originalOpacity"></md-slider>
+
+    <h4>Contrast Enhanced</h4>
+    <md-slider min="0" max="1" step=".01" [(ngModel)]="contrastOpacity"></md-slider>
+
+    <h4>Explanatory Image</h4>
+    <md-slider min="0" max="1" step=".01" [(ngModel)]="explanOpacity"></md-slider>
+
+    <h4>Prediction Distribution</h4>
+    <md-slider min="0" max="1" step=".01" [(ngModel)]="predOpacity"></md-slider>
+</div>
+</body>
+</html>

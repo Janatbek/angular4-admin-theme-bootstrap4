@@ -1,0 +1,98 @@
+<tabset *ngIf="selectedWidgetConfig">
+  <tab heading="Properties">
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" [(ngModel)]="selectedWidgetConfig.name" id="name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-sm-2 col-form-label">description</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" [(ngModel)]="selectedWidgetConfig.description" id="description">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="componentType" class="col-sm-2 col-form-label">component Type</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" [(ngModel)]="selectedWidgetConfig.componentType" id="componentType">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="supportMessage" class="col-sm-2 col-form-label">Support Message</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" [(ngModel)]="selectedWidgetConfig.supportMessage" id="supportMessage">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="supportMessage" class="col-sm-2 col-form-label">Admin Rights Required</label>
+      <div class="col-sm-10">
+        <select class="form-control" [(ngModel)]="selectedWidgetConfig.adminRequired">
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+        </select>
+
+      </div>
+    </div>
+
+  </tab>
+  <tooltip-content #contextMatchingRulesTooltip [animation]="true" placement="top">
+    <b>Context Matching:</b> At any time the application can have a set of context name/value pairs.  This is called the runtime context set.
+     A list of these rules is used to determine if the widget should be shown given the state of the context data.
+     For a widget to be displayed, the rules are as follows:
+    <ul>
+      <li>Runtime context set has ALL non-optional names defined in the widget's rules</li>
+      <li>If a rule's context value is specified, the runtime context set item by the rule's name has to have that value.  If no context value, all that matters is that
+        runtime context set has an item with that name
+      </li>
+      <li>If context has names that aren't specified in the rule, the widget won't be displayed.</li>
+    </ul>
+  </tooltip-content>
+  <tab heading="Context Matching">
+    <span class="label label-default" [tooltip]="contextMatchingRulesTooltip">Hover for info</span>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label tightPad">Context Name</label>
+      <label class="col-sm-4 col-form-label tightPad">Context Value (optional)</label>
+      <label class="col-sm-3 col-form-label tightPad">Optional</label>
+      <label class="col-sm-1 col-form-label tightPad"></label>
+    </div>
+
+    <div class="form-group row" *ngFor="let cmr of selectedWidgetConfig.contextMatchingRules; let idx = index">
+      <div class="col-sm-4 tightPad">
+        <input type="text" class="form-control" [(ngModel)]="cmr.contextName" name="name">
+      </div>
+      <div class="col-sm-4 tightPad">
+        <input type="text" class="form-control" [(ngModel)]="cmr.valueMatch" name="value">
+      </div>
+      <div class="col-sm-3 tightPad">
+        <select class="form-control" [(ngModel)]="cmr.optional">
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+        </select>
+      </div>
+      <div class="col-sm-1 tightPad">
+        <button type="button" class="btn btn-info btn-sm">
+          <span (click)="DeleteContextByIndex(idx)" class="badge badge-danger">X</span>
+        </button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-info btn-sm" (click)="AddContextRule()">
+      New context rule
+    </button>
+  </tab>
+  <tab heading="Data">
+    <app-data-consumer-config-editor [DataConsumerConfig]="selectedWidgetConfig.dataConsumerConfiguration"></app-data-consumer-config-editor>
+  </tab>
+  <tab heading="Configuration">
+    <textarea style="width: 100%; height: 400px" [(ngModel)]="selectedWidgetConfigJson" name="selectedConfigJson"></textarea>
+  </tab>
+  <tab heading="Raw">
+    <pre>{{selectedWidgetConfig | json}}</pre>
+  </tab>
+  <tab *ngIf="selectedWidgetConfig.componentType == 'GenericWidgetTable'" heading="Table Config">
+    <app-generic-table-config [widgetConfig] = "selectedWidgetConfig"></app-generic-table-config>
+  </tab>
+  <tab *ngIf="selectedWidgetConfig.componentType == 'GenericWidgetChart'" heading="Chart Config">
+    <app-generic-chart-config [widgetConfig] = "selectedWidgetConfig"></app-generic-chart-config>
+  </tab>
+</tabset>

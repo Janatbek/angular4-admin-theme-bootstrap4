@@ -1,0 +1,27 @@
+
+/* .selection-component-bottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.lot-table {
+    flex-grow: 1;
+}
+
+.lot-detail-table {
+    flex-grow: 1;
+} */ 
+
+.swr-title-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.swr-title {
+
+}
+
+.datatable-body-row {
+    background-color: lightblue !important;
+}

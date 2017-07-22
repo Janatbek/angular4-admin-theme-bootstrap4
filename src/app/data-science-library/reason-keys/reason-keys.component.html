@@ -1,0 +1,11 @@
+<div style="display: block; height: 98%; width: 100%; position: absolute;">
+    <canvas id="myChart" *ngIf="datasets" baseChart
+            [datasets]="datasets"
+            [labels]="labels"
+            [options]="options"
+            [colors]="colors"
+            [legend]="legend"
+            [chartType]="type"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>

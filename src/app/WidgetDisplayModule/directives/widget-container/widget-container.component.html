@@ -1,0 +1,77 @@
+<div *ngIf="UserAcessDenied(); else OK">
+  <h4>Component requires platform administration access.</h4>
+</div>
+
+<ng-template #OK>
+
+  <div *ngIf="Config.componentType == 'CacheDataAdmin'">
+    <app-cache-data-admin [Config]="Config"></app-cache-data-admin>
+  </div>
+  <div *ngIf="Config.componentType == 'WidgetAdmin'">
+    <app-widget-admin [Config]="Config"></app-widget-admin>
+  </div>
+  <div *ngIf="Config.componentType == 'RandomChartWidget'">
+    <app-random-chart [Config]="Config"></app-random-chart>
+  </div>
+  <div *ngIf="Config.componentType == 'Diagnostics'">
+    <app-diagnostics [Config]="Config"></app-diagnostics>
+  </div>
+  <div *ngIf="Config.componentType == 'UserAdministration'">
+    <app-user-administration [Config]="Config"></app-user-administration>
+  </div>
+  <div *ngIf="Config.componentType == 'DataPolicyAdmin'">
+    <app-data-policy-admin [Config]="Config"></app-data-policy-admin>
+  </div>
+  <div *ngIf="Config.componentType == 'LotForecaster'">
+    <app-lot-forecaster [Config]="Config"></app-lot-forecaster>
+  </div>
+  <div *ngIf="Config.componentType == 'GenericWidgetChart'">
+    <app-generic-chart [Config]="Config"></app-generic-chart>
+  </div>
+  <div *ngIf="Config.componentType == 'WidgetHelp'">
+    <app-widget-help [Config]="Config"></app-widget-help>
+  </div>
+  <div *ngIf="Config.componentType == 'SideNavAdmin'">
+    <app-side-nav-admin [Config]="Config"></app-side-nav-admin>
+  </div>
+  <div *ngIf="Config.componentType == 'GenericWidgetTable'">
+    <app-generic-table [Config]="Config"></app-generic-table>
+  </div>
+  <div *ngIf="Config.componentType == 'AnomoliesStatisticsSummaryComponent'">
+    <app-anomolies-statistics-summary [Config]="Config"></app-anomolies-statistics-summary>
+  </div>
+  <div *ngIf="Config.componentType == 'AnomaliesRawTraceVsPopulationComponent'">
+    <app-anomalies-raw-trace-vs-population [Config]="Config"></app-anomalies-raw-trace-vs-population>
+  </div>
+   <div *ngIf="Config.componentType == 'AllTracesComponent'">
+    <app-all-traces [Config]="Config"></app-all-traces>
+  </div>
+   <div *ngIf="Config.componentType == 'ReasonKeysComponent'" style="height: 92.5%; width: 92.5%; position: absolute;">
+    <app-reason-keys [Config]="Config"></app-reason-keys>
+  </div>
+  <div *ngIf="Config.componentType == 'MasterConfiguration'">
+    <app-master-configuration [Config]="Config"></app-master-configuration>
+  </div>
+  <div *ngIf="Config.componentType == 'TableauComponent'">
+    <app-tableau [Config]="Config"></app-tableau>
+  </div>
+  <div *ngIf="Config.componentType == 'TestLineChartComponent'">
+    <app-test-line-chart [Config]="Config"></app-test-line-chart>
+  </div>
+  <div *ngIf="Config.componentType == 'SensorRunAnomalyScoresComponent'">
+    <app-sensor-run-anomaly-scores [Config]="Config"></app-sensor-run-anomaly-scores>
+  </div>
+
+  <div *ngIf="Config.componentType == 'WisEdlComponent'">
+    <app-wis-edl [Config]="Config"></app-wis-edl>
+  </div>
+
+   <div *ngIf="Config.componentType == 'autoSWRtestComponent'">
+    <app-auto-swr [Config]="Config"></app-auto-swr>
+  </div>
+
+  <div *ngIf="Config.componentType == 'app-cameca-surf-log'">
+    <app-cameca-wf-sims-log [Config]="Config"></app-cameca-wf-sims-log>
+  </div>
+
+</ng-template>

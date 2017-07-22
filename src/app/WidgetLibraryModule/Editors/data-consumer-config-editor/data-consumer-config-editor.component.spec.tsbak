@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { DataConsumerConfigEditorComponent } from './data-consumer-config-editor.component';
+
+describe('WataConsumerConfigEditorComponent', () => {
+  let component: DataConsumerConfigEditorComponent;
+  let fixture: ComponentFixture<DataConsumerConfigEditorComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ DataConsumerConfigEditorComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DataConsumerConfigEditorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

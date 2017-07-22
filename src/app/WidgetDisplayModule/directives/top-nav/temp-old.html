@@ -1,0 +1,73 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+      <button data-toggle="tooltip" title="Click to open/close side navigation area." style="margin-right: 5px" class="btn btn-secondary navbar-btn"
+        (click)="toggleNav()">
+          <fa [name]="'bars'"></fa>
+      </button>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <!-- <a class="navbar-brand" href="javascript:;">Engineering Web Test Platform</a>
+      <ul class="nav navbar-nav">
+        <li style="margin-right: 5px" class="dropdown">
+          <button class="btn btn-secondary navbar-btn" type="button" id="menu1" data-toggle="dropdown">Page <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <div class="alert alert-success alert-msg" role="alert">Page</div>
+            <li role="presentation"><a (click)="Refresh()" href="javascript:;">Refresh</a></li>
+            <li role="presentation"><a (click)="ConfigureWidgetLayout()" href="javascript:;">Configure Widget Layout</a></li>
+            <li><a href="javascript:;" (click)="RefreshWidgetConfiguration()">Refresh Widgets</a></li>
+
+            <li role="separator" class="divider"></li>
+
+            <li class="dropdown-header">Widgets Per Row</li>
+
+            <li *ngFor="let perRow of widgetsPerRowList">
+              <a href="javascript:;" (click)="SetWidth(perRow.name)">
+                  {{perRow.name}}
+                  <i class="fa fa-check" *ngIf="PerRow(perRow.name)"></i>
+                </a>
+            </li>
+            <li role="separator" class="divider"></li>
+
+            <li class="dropdown-header">Quick Links</li>
+            <li><a href="javascript:;" (click)="QuickLink('widgetstore')">Widget store</a></li>
+            <li><a href="javascript:;" (click)="QuickLink('diagnostics')">Diagnostics</a></li>
+            <li><a href="javascript:;" (click)="QuickLink('cachedatareport')">Cached Data Report</a></li>
+
+          </ul>
+        </li>
+
+        <li style="margin-right: 5px" class="dropdown">
+          <button class="btn btn-secondary navbar-btn" type="button" id="menu1" data-toggle="dropdown">Cache <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+
+            <li role="presentation" *ngFor="let policy of cachePolicyList">
+              <a href="javascript:;" (click)="SetCachePolicy(policy.name)">{{policy.value}} <i class="fa fa-check" *ngIf="CachePolicyIs(policy.name)"></i></a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="javascript:;" (click)="ClearLocalCache()">Clear Local Cache</a></li>
+
+          </ul>
+        </li>
+      </ul> -->
+
+      <p *ngIf="User; else NotLoggedIn" class="navbar-text">Signed in as {{User}}</p>
+      <p *ngIf="isAdmin" class="navbar-text">(Admin)</p>
+      <ng-template #NotLoggedIn>
+        <p class="navbar-text">Obtaining user credentials...</p>
+      </ng-template>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,52 @@
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+}
+
+.breadcrumb {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 8px;
+    margin: 2px
+}
+
+.modal-lg {
+   max-width: 90%;
+   max-height: 90%;
+}
+
+.modal-lg .modal-body {
+  overflow-y: auto;
+}
+
+
+.modal-lg .modal-body p { margin-bottom: 900px }
+
+/* overrides */
+.btn-info {
+    color: #fff;
+    background-color: #0b406e;
+    /* border-color: #46b8da; */
+}
+
+.btn-collapse{
+    color: #fff;
+    background-color: #f4dc42;
+}
+
+.btn-warning {
+    color: #fff;
+    background-color: #804d0e;
+    border-color: #eea236;
+}
+
+.nav-pills .nav-link.active {
+    color: #fff;
+    cursor: default;
+    background-color: #0b406e;
+}
+
+/*.active {
+    display: inline-block;
+}*/

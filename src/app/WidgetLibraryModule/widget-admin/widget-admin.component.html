@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10">
+      <select class="form-control" name="selectedWidgetConfig" (change)="onSelectChange()"  [(ngModel)]="selectedWidgetConfig">
+        <option *ngFor="let widgetConfig of widgetConfigList" [ngValue]="widgetConfig">{{widgetConfig.name}}</option>
+      </select>    
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="list-group-item list-group-item-success" (click)="AddWidget()">New</button>
+    </div>
+  </div>
+  <div class="row">
+  <div *ngIf="selectedWidgetConfig" class="col-md-12">
+      <app-widget-config-editor [selectedWidgetConfig]="selectedWidgetConfig"></app-widget-config-editor>
+    </div>
+  </div>

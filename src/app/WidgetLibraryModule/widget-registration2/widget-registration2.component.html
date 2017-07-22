@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6">
+      <!--Start of success 'Available' section  -->
+      <section class="card card-outline-success">
+        <div class="card-block">
+          <h4 class="card-title">Available</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item justify-content-between" *ngFor="let widget of AvailableWidgets()">
+            {{widget.name}}
+            <div>
+              Group:
+
+
+              <button *ngFor="let group of GroupWidgetsToDisplay(); let i = index" [disabled]="WidgetIsInGroup(widget.name, group)" type="button"
+                class="btn btn-sm btn-outline-primary" (click)="AddToGroup(widget, group)">{{i+1}}</button>
+
+              <button type="button" class="btn btn-sm btn-outline-primary" (click)="AddToNewGroup(widget)">New</button>
+
+              <button [disabled]="!WidgetIsGrouped(widget.name)" type="button" class="btn btn-sm btn-outline-primary" (click)="AddToUngrouped(widget)">None</button>
+              <button (click)="AddToExcluded(widget)" type="button"  class="btn btn-sm btn-secondary">Exclude</button>
+            </div>
+
+          </li>
+        </ul>
+      </section>
+      <!--End of success 'Available' section  -->
+      <!--End of danger 'Excluded' section  -->
+      <section class="card card-outline-danger margin-top-10">
+        <div class="card-block">
+          <h4 class="card-title">Excluded</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item justify-content-between" *ngFor="let widget of UnavailableWidgets()">
+            {{widget.name}}
+            <div class="float-sm-right">
+              <button *ngFor="let group of GroupWidgetsToDisplay(); let i = index" type="button" class="btn btn-sm btn-secondary" (click)="AddToGroup(widget, group)">Group {{i+1}}</button>
+
+              <button type="button" class="btn btn-sm btn-secondary" (click)="AddToNewGroup(widget)">New Group</button>
+
+              <button type="button" class="btn btn-sm btn-secondary" (click)="AddToUngrouped(widget)">No Group</button>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <!--End of danger 'Excluded' section  -->
+    </div>
+    <!--End of .col-sm-6 div  -->
+
+    <div *ngIf="widgetRegistrationCopy" class="col-sm-6">
+
+      <section id="accordion" role="tablist" aria-multiselectable="true">
+        <div *ngFor="let group of GroupWidgetsToDisplay(); let i = index" [ngClass]="i > 0 ? 'card margin-top-10 card-outline-primary' : 'card card-outline-primary'" >
+          <div class="card-header" role="tab" id="heading{{ i + 1 }}">
+            <h5 class="mb-0">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i+1}}" aria-expanded="true">
+                {{group.contextKey}} group {{group.index}}
+              </a>
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
+              <div class="float-sm-right">
+                <button [disabled]="!CanGroupUp(group)" type="button" class="btn btn-sm btn-secondary" (click)="GroupUp(group)"><i class="fa fa-arrow-up"></i></button>
+                <button [disabled]="!CanGroupDown(group)" type="button" class="btn btn-sm btn-secondary" (click)="GroupDown(group)"><i class="fa fa-arrow-down"></i></button>
+              </div>
+            </h5>
+          </div>
+
+          <div id="collapse{{ i + 1 }}" class="collapse show" role="tabpanel">
+            <div class="card-block remove-card-block-padding">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item justify-content-between" *ngFor="let widget of WidgetNameIndexesFor(group)">{{widget.name}} ({{widget.index}})
+                  <div>
+                    <button [disabled]="!CanWidgetUp(group, widget)" type="button" class="btn btn-sm btn-secondary" (click)="WidgetUp(group, widget)"><i class="fa fa-arrow-up fa-2"></i></button>
+                    <button [disabled]="!CanWidgetDown(group, widget)" type="button" class="btn btn-sm btn-secondary" (click)="WidgetDown(group, widget)"><i class="fa fa-arrow-down fa-2"></i></button>
+                  </div>
+              </ul>
+            </div>
+            <div class="card-block remove-card-block-padding">
+              <div class="card">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item justify-content-between">
+                    <h2 class="badge badge-primary">Height</h2>
+                    <div class="btn-group" role="group">
+                      <button *ngFor="let hs of heightSpecValues" [disabled]="group.heightSpec === hs.value" (click)="GroupHeightChange(group, hs.value)"
+                        type="button" class="btn btn-secondary btn-sm">{{hs.name}}</button>
+                    </div>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    <h2 class="badge badge-primary">Width</h2>
+                    <div class="btn-group" role="group">
+                      <button *ngFor="let ws of widthSpecValues" [disabled]="group.widthSpec === ws.value" (click)="GroupWidthChange(group, ws.value)"
+                        type="button" class="btn btn-secondary btn-sm">{{ws.name}}</button>
+                    </div>
+                  </li>
+                  <li class="list-group-item list-group-item-action list-group-item-danger">
+                    <button (click)="ClearGroup(group)" type="button" class="btn btn-secondary btn-sm">Remove Group</button>
+                  </li>
+                </ul>
+              </div>
+              <!--End of .card div  -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--End of primary section  -->
+    </div>
+    <!--End of .col-sm-6 div  -->
+
+  </div>
+  <!--End of main .row div  -->
+</div>
+<!-- End of .container-fluid div -->

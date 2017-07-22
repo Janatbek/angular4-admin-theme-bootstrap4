@@ -1,0 +1,51 @@
+<label class="col-sm-2 col-form-label">Server side filtering</label>
+<input type="text" class="form-control" [(ngModel)]="dataGrouping.serverSide" name="serverSide">
+
+<table>
+  <thead>
+    <th>Group By Column</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let col of dataGrouping.groupBy">
+      <td>{{col}}</td>
+      <button type="button" class="btn btn-sm btn-secondary" (click)="RemoveGroupBy(col)">X</button>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" class="form-control" [(ngModel)]="newGroupByColum" name="newGroupByColum">
+      </td>
+      <td>
+        <button type="button" class="btn btn-sm btn-secondary" (click)="AddGroupBy()"> New </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="form-group row">
+  <label class="col-sm-3 col-form-label">name</label>
+  <label class="col-sm-2 col-form-label">operation</label>
+  <label class="col-sm-2 col-form-label">rename</label>
+</div>
+
+<div class="form-group row" *ngFor="let agg of dataGrouping.aggregations; let i = index">
+  <div class="col-sm-3">
+    <input type="text" class="form-control" [(ngModel)]="agg.name" name="column">
+  </div>
+  <div class="col-sm-2">
+    <select class="form-control" [(ngModel)]="agg.operation" id="fRuleOperator">
+        <option *ngFor="let op of operations" [ngValue]="op">
+                {{op}}
+        </option>
+    </select>
+  </div>
+
+  <div class="col-sm-2">
+    <input type="text" class="form-control" [(ngModel)]="agg.rename" name="aggRename">
+  </div>
+  <div class="col-sm-2">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="RemoveAggregate(i)">X</button>
+  </div>
+</div>
+<button type="button" class="btn btn-sm btn-secondary" (click)="AddAggregate()"> New Aggregate </button>

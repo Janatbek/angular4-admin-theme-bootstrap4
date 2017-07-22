@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+        <div *ngIf="DisplayStateService.appState.current.sideNav.displayState === 'show'" class="margin-right-10">
+            <div class="col-xs-12" *ngIf="DisplayStateService.appState.sideNavWidgetConfig">
+                    <select class="form-control" (change)="onSelectChange()" [(ngModel)]="selectedConfig">
+                        <option *ngFor="let nv of this.DisplayStateService.appState.sideNavWidgetConfig.widgetNameList" [ngValue]="nv.value">
+                                {{nv.value}}
+                        </option>
+                    </select>
+            </div>
+            <div *ngIf="WidgetConfiguration && WidgetConfiguration.componentType == 'GenericGroupedDataSideNav'">
+                <app-generic-grouped-data-side-nav [Config]="WidgetConfiguration"></app-generic-grouped-data-side-nav>
+            </div>
+        </div>
+        <div width="38px">
+            <button class="btn btn-sm" (click)="toggleSideNav()">
+                <i [ngClass]="(DisplayStateService.appState.current.sideNav.displayState === 'show') ? 'fa fa-times':'fa fa-bars'"></i>
+            </button>
+        </div>
+    </div>
+</div>

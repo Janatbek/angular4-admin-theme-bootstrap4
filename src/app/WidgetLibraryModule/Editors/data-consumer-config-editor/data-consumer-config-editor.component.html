@@ -1,0 +1,137 @@
+<tooltip-content #dataPolicyName><b>Data policy name:</b> must be a name in the list of data configuration objects </tooltip-content>
+<div class="form-group row" style="margin-top: 15px">
+  <label [tooltip]="dataPolicyName" class="col-sm-2 col-form-label">Data Policy Name</label>
+  <div class="col-sm-10">
+
+    <select class="form-control" [(ngModel)]="DataConsumerConfig.dataPolicy" id="dataPolicy">
+      <option *ngFor="let name of dataPolicyNames" [ngValue]="name">
+              {{name}}
+      </option>
+    </select>
+  </div>
+</div>
+
+<tabset type="pills">
+
+  <tooltip-content #fixedParamsTooltip [animation]="true" placement="top">
+    <b>Fixed Parameters:</b> These parameter name/values are ALWAYS sent with the data request
+  </tooltip-content>
+  <tab heading="Fixed">
+    <span class="label label-default" [tooltip]="fixedParamsTooltip">Hover for info</span>
+    <app-name-value-editor [nvArray]="DataConsumerConfig.fixedParameters" [nameDisplay]="'Name'" [valueDisplay]="'Value'"></app-name-value-editor>
+  </tab>
+
+  <tooltip-content #sortColumnsTooltip [animation]="true" placement="top">
+    <b>Fixed Parameters:</b> These parameter name/values used to sort.  The name is the column, and the value is asc or desc
+  </tooltip-content>
+  <tab heading="Sorting">
+    <span class="label label-default" [tooltip]="sortColumnsTooltip">Hover for info</span>
+    <app-name-value-editor [nvArray]="DataConsumerConfig.sortColumns" [valueEnum]="sortTypes" [nameEnum]="DataConsumerConfig.columns" [nameDisplay]="'column'" [valueDisplay]="'Value'"></app-name-value-editor>
+  </tab>
+
+  <tooltip-content #contextParamsTooltip [animation]="true" placement="top">
+    <b>Context Parameters:</b> Parameters sent to the data source based on current context. Specifying a 'Context Name' tells
+    the app that the context name/value should be sent to the data source url. Specifying 'Name To Send' will send that value
+    as the name instead of the context name. Example
+    <ul>
+      <li>Current context name/values are [Source=probe][Design=L06A][Lot=1234567.001][Step=FPP.00]</li>
+      <li>context parameters are [Design=,Step=Pid]</li>
+      <li>query params would be ?Design=L06A&Pid=FPP.00</li>
+    </ul>
+  </tooltip-content>
+  <tab heading="Context Params">
+    <span class="label label-default" [tooltip]="contextParamsTooltip">Hover for info</span>
+    <app-name-value-editor [nvArray]="DataConsumerConfig.contextParameters" [nameDisplay]="'Context Name'" [valueDisplay]="'Name To Send (optional)'"></app-name-value-editor>
+  </tab>
+
+  <tooltip-content #filterConfiguration [animation]="true" placement="top">
+    <b>Filter Configuration: </b>
+    <ul>
+      <li><b>Name: </b>Column name to filter on</li>
+      <li><b>operator</b> (optional) specifies the kind of filtering
+        <ul>
+          <li>string filtering: eq (default), startsWith, endsWith, contains</li>
+          <li>number filtering: ==, gt, lt, ge, le, ne</li>
+        </ul>
+      </li>
+      <li><b>Fixed value</b> (optional) the value to use with the operator to filter the rows</li>
+      <li><b>Context Name for Value</b> (optional) the current context name to use the value for to filter the rows</li>
+      <li><b>Server side filtering</b> If true, server will filter results before sending to the app. If false, filtering occurs
+        in app after it is retrieved</li>
+    </ul>
+  </tooltip-content>
+  <tab heading="Filter">
+    <span class="label label-default" [tooltip]="filterConfiguration">Hover for info</span>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Column Name</label>
+      <label class="col-sm-2 col-form-label">Operator?</label>
+      <label class="col-sm-2 col-form-label">Fixed Value?</label>
+      <label class="col-sm-2 col-form-label">Context Name for Value?</label>
+      <label class="col-sm-2 col-form-label">Server side filtering</label>
+
+    </div>
+    <div class="form-group row" *ngFor="let fRule of DataConsumerConfig.filterConfiguration">
+
+      <div *ngIf="DataConsumerConfig.columns; else filterNameNoColumns" class="col-sm-3">
+          <select class="form-control" [(ngModel)]="fRule.column" id="fRuleColumn">
+            <option *ngFor="let name of DataConsumerConfig.columns" [ngValue]="name">
+                    {{name}}
+            </option>
+          </select>
+      </div>
+      <ng-template #filterNameNoColumns>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" [(ngModel)]="fRule.column" name="column">
+        </div>
+      </ng-template>
+      <div class="col-sm-2">
+        <select class="form-control" [(ngModel)]="fRule.operator" id="fRuleOperator">
+           <option *ngFor="let nv of filterOps" [ngValue]="nv.value">
+                    {{nv.value}}
+            </option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" [(ngModel)]="fRule.value" name="value">
+      </div>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" [(ngModel)]="fRule.contextValueName" name="contextValueName">
+      </div>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" [(ngModel)]="fRule.serverSide" name="serverSide">
+      </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-info btn-sm">
+          <span (click)="DeleteFilterConfigByIndex(idx)" class="badge badge-danger">X</span>
+        </button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-sm btn-secondary" (click)="AddFilterConfig()" >Add</button>
+  </tab>
+
+  <tooltip-content #overrideCacheRulesTooltip [animation]="true" placement="top">
+    Used to override the data policy set cache rules for this widget
+  </tooltip-content>
+  <tab heading="Cache rule overrides">
+    <span class="label label-default" [tooltip]="overrideCacheRulesTooltip">Hover for info</span>
+    <app-cache-rule-editor [cacheRules]="DataConsumerConfig.overrideCacheRules"></app-cache-rule-editor>
+  </tab>
+
+  <tooltip-content #dataGroupingTooltip [animation]="true" placement="top">
+    Used to override the data policy set cache rules for this widget
+  </tooltip-content>
+  <tab heading="Grouping">
+    <span class="label label-default" [tooltip]="dataGroupingTooltip">Hover for info</span>
+    <app-data-grouping-editor [columns]="DataConsumerConfig.columns" [dataGrouping]="DataConsumerConfig.dataGrouping"></app-data-grouping-editor>
+  </tab>
+
+
+  <tooltip-content #pivotTooltip [animation]="true" placement="top">
+    Not implemented yet
+  </tooltip-content>
+  <tab heading="Pivot">
+    <span class="label label-default" [tooltip]="pivotTooltip">Hover for info</span>
+    <p>Not Implemented yet</p>
+  </tab>
+
+</tabset>

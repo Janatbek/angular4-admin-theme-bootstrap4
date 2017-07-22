@@ -1,0 +1,14 @@
+Filter:
+<input class="form-control" type="text" [ngModel]="filter" (ngModelChange)="onFilterChanged($event)"/>
+Page size:
+<input class="form-control" type="text" [ngModel]="pageSize" (ngModelChange)="onPageSizeChange($event)"/>
+<md-slider [min]="minPage" [max]="maxPage" step="1" [(ngModel)]="currentPage"></md-slider>
+Page {{currentPage}} of {{maxPage}}
+<table  class="table table-condensed table-bordered table-nonfluid">
+  <tr>
+    <th *ngFor="let column of columns ">{{column}}</th>
+  </tr>
+  <tr *ngFor="let row of PageOfRows()">
+    <td *ngFor="let field of row">{{field}}</td>
+  </tr>
+</table>

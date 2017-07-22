@@ -1,0 +1,32 @@
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  padding-bottom: 10px;
+}
+
+.cell-with-padding {
+  display: table-cell;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.bordered {
+  border: 1px solid black;
+  padding: 5px 5px 5px 5px;
+  margin: 2px 0 2px 0;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  font-size: 10px;
+}

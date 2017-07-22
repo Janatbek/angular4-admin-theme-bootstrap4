@@ -1,0 +1,39 @@
+<!--<div *ngIf="displayDataSet;  else loading" class="table">
+  <table style="width: auto !important" class="table table-condensed table-bordered table-nonfluid">
+    <tr>
+      <th *ngFor="let column of displayDataSet.columns ">{{column}}</th>
+    </tr>
+    <tr>
+      <th style="min-width: 90px" *ngFor="let column of displayDataSet.columns ">
+        <input type="text" style="width: 50px" [ngModel]="filterlkp[column]" (ngModelChange)="onFilterChange(column, $event)" placeholder="filter"
+        />
+        <button style="padding: 2px;" (click)="SetSort(column, 'asc')" type="button" class="btn btn-sm"><fa [name]="'sort-desc'"></fa></button>
+        <button style="padding: 2px;" (click)="SetSort(column, 'desc')" type="button" class="btn btn-sm"><fa [name]="'sort-asc'"></fa></button>
+      </th>
+    </tr>
+
+    <ng-container *ngFor="let row of displayDataSet.data; let rowIdx = index">
+      <tr class="success" *ngIf="filtered(rowIdx); else unfiltered">
+        <td *ngFor="let field of row; let colIdx = index" [ngStyle]="{'background-color': GetColorStyle(rowIdx, colIdx) }">{{field}}</td>
+
+      </tr>
+      <ng-template #unfiltered>
+        <tr>
+          <td *ngFor="let field of row; let colIdx = index" [ngStyle]="{'background-color': GetColorStyle(rowIdx, colIdx) }">{{field}}</td>
+        </tr>
+      </ng-template>
+    </ng-container>
+  </table>
+</div>
+
+<ng-template #loading>
+  <fa [name]="'rocket'" [spin]=true></fa>
+  Loading data...
+</ng-template>
+
+<ol *ngIf="displayDataSet" class="breadcrumb">
+  <li class="breadcrumb-item active"><strong>Retrieved: </strong>{{cacheDataInfo.CacheDate}}</li>
+  <li class="breadcrumb-item active"><strong>Cache? </strong>{{cacheDataInfo.RetrievedFromCache}}</li>
+  <li class="breadcrumb-item active"><strong>Visible: </strong>{{displayDataSet.data.length}} of {{originalDataSet.data.length}}</li>
+
+</ol>-->

@@ -1,0 +1,23 @@
+<div *ngIf="datasets">
+  <div style="display: block"  *ngFor="let dataset of datasets; let i = index;">
+
+    <h5 style="text-align: center;">Run ID: <strong>{{ dataset.runID }}</strong>, Sensor Name: <strong>{{ dataset.sensorName }}</strong></h5>
+
+    <canvas id="myChart_traceNum"  baseChart
+            [datasets]="[dataset]"
+            [labels]="labels"
+            [options]="options"
+            [colors]="i == 0 ? domColors : subColors"
+            [legend]="legend"
+            [chartType]="type"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+
+          <!--  <div *ngFor="let dataset of datasets">
+              {{ dataset | json }}
+            </div> -->
+            
+            <hr>
+  </div>
+
+</div>

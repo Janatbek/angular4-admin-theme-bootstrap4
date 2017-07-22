@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <button type="button" class="btn btn-primary btn-sm">Context: </button>
+                            <button *ngFor="let s of contextBreadCrumbs" type="button" class="btn btn-info btn-sm">
+                                <span>{{s.display}}</span>
+                                <span (click)="DeleteContext(s.name)" class="badge badge-pill badge-danger">
+                                  <i class="fa fa-times" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <button type="button" class="btn btn-primary btn-sm">Filters & Sorts: </button>
+                            <button *ngFor="let s of filterBreadCrumbs" type="button" class="btn btn-secondary btn-sm">
+                                {{s.display}}
+                                <span (click)="DeleteFilter(s.name)"  class="badge badge-danger">X</span>
+                            </button>
+                            <button *ngFor="let s of sortBreadCrumbs" type="button" class="btn btn-secondary btn-sm">
+                                {{s.display}}
+                                <span (click)="DeleteSort(s.name)" class="badge badge-danger">X</span>
+                            </button>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#widgetSelectionModal">
+                <i class="fa fa-windows" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="widgetDisplayGroups" class="row">
+        <div  *ngFor="let widgetDisplayGroup of widgetDisplayGroups; let idx = index;" [style.height]="HeightOf(widgetDisplayGroup)" [class]="WidthOf(widgetDisplayGroup)"
+        style="margin-top: 10px;" [style.overflow-x]="'auto'" [style.overflow-y]="'auto'">
+        <div style="padding: 5px; width: 100%; height: calc(100% - 8px); border-style: solid; border-color: #AAA; border-width: 2px; min-height: 250px; box-shadow: 5px 5px 3px #BBB" [style.overflow-x]="'auto'" [style.overflow-y]="'auto'">
+                <tabset id="{{ 'tabset' + idx }}" type="pills">
+                    <tab [heading]="OrderedWidget.widgetConfiguration.name" *ngFor="let OrderedWidget of widgetDisplayGroup.widgetList;  let t = index;">
+                         <app-widget-container [Config]="OrderedWidget.widgetConfiguration"></app-widget-container>
+                    </tab>
+                </tabset>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div id="widgetSelectionModal" tabindex="-1" role="dialog" class="modal fade"> 
+    <!-- modal-big was replaced to modal-lg in BS4 -->
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Configure Widget Layout</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <app-widget-registration2></app-widget-registration2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="ResetLayout()" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="SaveLayout()" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

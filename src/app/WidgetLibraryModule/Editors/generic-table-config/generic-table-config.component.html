@@ -1,0 +1,49 @@
+<label>Column Rules</label>
+
+<div *ngIf="widgetConfiguration && genericTableConfiguration">
+  <div class="form-group row">
+    <label class="col-sm-3 tightPad col-form-label">Column</label>
+    <label class="col-sm-3 col-form-label">Switch background on change</label>
+    <label class="col-sm-2 tightPad col-form-label">Heatmap rule: low</label>
+    <label class="col-sm-2 tightPad col-form-label">Heatmap rule: high</label>
+    <label class="col-sm-2 tightPad col-form-label">Remove</label>
+  </div>
+  <div class="form-group row" *ngFor="let rule of genericTableConfiguration.tableColumnRules; let idx = index">
+
+    <div *ngIf="widgetConfiguration.dataConsumerConfiguration.columns; else noColumns" class="col-sm-3">
+      <select class="form-control" [(ngModel)]="rule.columnName" id="rulecolumnName">
+        <option *ngFor="let name of widgetConfiguration.dataConsumerConfiguration.columns" [ngValue]="name">
+                {{name}}
+        </option>
+      </select>
+    </div>
+    <ng-template #noColumns>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" [(ngModel)]="rule.columnName" name="rulecolumnName">
+      </div>
+    </ng-template>
+
+
+    <div class="col-sm-3">
+      <select class="form-control" [(ngModel)]="rule.alternateColorOnValueChange">
+          <option [ngValue]="true">True</option>
+          <option [ngValue]="false">False</option>
+      </select>
+    </div>
+
+    <div class="col-sm-2">
+      <input type="text" class="form-control" [(ngModel)]="rule.heatmapRules.low" name="low">
+    </div>
+
+    <div class="col-sm-2">
+      <input type="text" class="form-control" [(ngModel)]="rule.heatmapRules.high" name="high">
+    </div>
+
+    <div class="col-sm-2 tightPad">
+      <button type="button" class="btn btn-info btn-sm">
+      <span (click)="DeleteByIndex(idx)" class="badge badge-danger">X</span>
+    </button>
+    </div>
+  </div>
+  <button type="button" class="btn btn-sm btn-secondary" (click)="Add()">Add</button>
+</div>

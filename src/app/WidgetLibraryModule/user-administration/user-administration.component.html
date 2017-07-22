@@ -1,0 +1,56 @@
+
+<div class="container-fluid">
+  <div class="row"> 
+<div class="panel panel-default">
+  <div class="panel-heading">Widget administration</div>
+  <div class="panel-body">
+    Click on the name labels of any of the widgets in the master list below to register or unregister the widget in your custom settings.  
+    Unregistered widgets will appear grey and will not show up in any views you navigate to within the platform.  Registered widgets will 
+    be blue.
+    To move or order widgets for a particular view, use the windows button at the top right of the screen when you are in the 
+    context-based view you want to customize to group and lay out the widgets.
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">Unregistered widgets will appear grey and will not show up in any views you navigate to within the platform.</li>
+    <li class="list-group-item">Registered widgets will 
+    be blue.</li>
+    <li class="list-group-item">To move or order widgets for a particular view, use the windows button at the top right of the screen when you are in the 
+    context-based view you want to customize to group and lay out the widgets.</li>
+  </ul>
+
+</div>
+     <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" >Available Widgets: Categories</a>
+          </div>
+          <button (click)="SourceSelected(s)" *ngFor="let s of uniqueSources" type="button" class="btn btn-secondary navbar-btn">{{s}}</button>
+        </div>
+      </nav>
+
+  <div *ngFor="let group of groupedWidgetConfigList" class="row">
+    <div *ngFor="let widgetConfig of group.widgetConfigList; let idx = index" class="col-md-3">
+
+      <h4><span (click)="ToggleWidgetSelection(widgetConfig.name)" class="label label-default">{{widgetConfig.name}}</span></h4>
+
+      <tooltip-content #widgetTooltip [animation]="true" placement="top">
+
+
+            <h3 class="panel-title">{{widgetConfig.name}}</h3>
+            {{widgetConfig.description}}
+
+        <span *ngFor="let r of widgetConfig.contextMatchingRules; let idx = index">
+          {{ContextMatchingRuleToString(r)}}
+          <br *ngIf="idx % 2 == 0" />
+        </span>
+
+      </tooltip-content>
+
+      <i *ngIf="WidgetSelected(widgetConfig.name); else notSelected" [tooltip]="widgetTooltip" style="font-size: 200px; color: #9999FF"
+        class="fa fa-cogs fa-6" aria-hidden="true"></i>
+        <ng-template #notSelected>
+          <i [tooltip]="widgetTooltip" style="font-size: 200px; color: #B1B2B9" class="fa fa-gear fa-6" aria-hidden="true"></i>
+        </ng-template>
+    </div>
+  </div>
+</div>

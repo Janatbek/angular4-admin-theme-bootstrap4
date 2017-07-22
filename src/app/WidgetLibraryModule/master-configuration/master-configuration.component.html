@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-sm-4">
+      <input style="width: 70%;" type="text" class="form-control" [ngModel]="filter" (ngModelChange)="onLocalFilterChange($event)" placeholder="Search"
+      />
+    </div>
+
+    <div class="col-sm-8">
+      <span class="pull-right">
+      Save edits:
+        <button type="button" class="btn btn-secondary" (click)="SaveChangesGlobal()">Globally</button>
+        <button type="button" class="btn btn-secondary" (click)="SaveChangesLocal()">Locally</button>
+      </span>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div *ngIf="Ready()" class="col-sm-4">
+
+      <div>
+        <span><button type="button" class="btn btn-success btn-sm" (click)="toggleCollapse('s')"><i class="fa fa-arrows-v"></i></button></span>
+        <span>Side Navigation</span>
+        <ul [collapse]="isCollapsed('s')" class="list-group ">
+          <li (click)="UserSelect('SideNav', sideNavNV.name)" class="list-group-item justify-content-between {{IsActive('SideNav', sideNavNV.name)}}" *ngFor="let sideNavNV of filteredSideNavWidgetConfig.widgetNameList; let idx = index">
+            <div>{{sideNavNV.name}}</div>
+            <div>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="Remove('SideNav', idx)">
+                <i class="fa fa-times"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="MoveUp('SideNav', idx)">
+                <i class="fa fa-arrow-up"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="MoveDown('SideNav', idx)">
+                <i class="fa fa-arrow-down"></i>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <span><button type="button" class="btn btn-info btn-sm" (click)="toggleCollapse('w')"><i class="fa fa-arrows-v"></i></button></span>
+        <span>Widget Configuration</span>
+        <ul [collapse]="isCollapsed('w')" class="list-group">
+          <li (click)="UserSelect('WidgetConfiguration', WidgetConfiguration.name)" class="list-group-item justify-content-between {{IsActive('WidgetConfiguration', WidgetConfiguration.name)}}"
+            *ngFor="let WidgetConfiguration of filteredWidgetConfigurationList; let idx = index">
+            <span class="float-sm-left">{{WidgetConfiguration.name}}</span>
+            <span class="float-sm-right">
+
+              <button type="button" class="btn btn-sm btn-secondary" *ngIf="CanAddWidgetConfigAsSideNav(WidgetConfiguration)" (click)="AddWidgetConfigAsSideNav(WidgetConfiguration)">Side Nav</button>
+
+              <button type="button" class="btn btn-sm btn-secondary" (click)="Remove('WidgetConfiguration', idx)">X</button>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="MoveUp('WidgetConfiguration', idx)">
+                <i class="fa fa-arrow-up"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="MoveDown('WidgetConfiguration', idx)">
+                <i class="fa fa-arrow-down"></i>
+              </button>
+            </span>
+          </li>
+          <li>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="Add('WidgetConfiguration')"> New </button>
+          </li>
+        </ul>
+
+      </div>
+
+      <div>
+
+        <span><button type="button" class="btn btn-warning btn-sm" (click)="toggleCollapse('d')"><i class="fa fa-arrows-v"></i></button></span>
+        <span>Data Policy</span>
+        <ul [collapse]="isCollapsed('d')" class="list-group list-group-flush">
+          <li (click)="UserSelect('DataPolicy', DataPolicy.name)" class="list-group-item justify-content-between {{IsActive('DataPolicy', DataPolicy.name)}}"
+            *ngFor="let DataPolicy of filteredDataPolicyList; let idx = index">
+            <span class="float-sm-left">{{DataPolicy.name}}</span>
+            <div class="float-sm-right">
+              <button type="button" class="btn btn-sm btn-secondary" (click)="Remove('DataPolicy', idx)">X</button>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="MoveUp('DataPolicy', idx)">
+                <i class="fa fa-arrow-up"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="MoveDown('DataPolicy', idx)">
+                <i class="fa fa-arrow-down"></i>
+              </button>
+            </div>
+          </li>
+          <li><button type="button" class="btn btn-sm btn-secondary" (click)="Add('DataPolicy')"> New </button></li>
+        </ul>
+
+      </div>
+
+    </div>
+    <div class="col-sm-8">
+      <div *ngIf="selectedSideNav">
+        <div class="card card-outline-success mb-2">
+          <div class="card-block">
+            <h4 class="card-title">Side Navigation: {{selectedSideNav.name}}</h4>
+          </div>
+          <div class="card-block">
+            <tabset>
+            <tab heading="Display Name">
+              <input type="text" class="form-control" [(ngModel)]="selectedSideNav.value" name="value">
+            </tab>
+            <tab heading="Raw">
+              <pre>{{filteredSideNavWidgetConfig | json}}</pre>
+          </tab>
+            </tabset>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedWidgetConfiguration">
+        <div class="card card-outline-info mb-2">
+          <div class="card-block">
+            <h4 class="card-title">Widget Configuration: {{selectedWidgetConfiguration.name}}</h4>
+          </div>
+          <div class="card-block">
+            <app-widget-config-editor [selectedWidgetConfig]="selectedWidgetConfiguration"></app-widget-config-editor>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="CloneselectedWidgetConfiguration()">Clone {{selectedWidgetConfiguration.name}}</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedDataPolicy">
+        <div class="card card-outline-warning mb-2">
+          <div class="card-block">
+            <h4 class="card-title">Data Policy: {{selectedDataPolicy.name}}</h4>
+          </div>
+          <div class="card-block">
+            <app-data-policy-editor [dataPolicy]="selectedDataPolicy"></app-data-policy-editor>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="CloneselectedDataPolicy()">Clone {{selectedDataPolicy.name}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

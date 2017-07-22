@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { WidgetRegistration2Component } from './widget-registration2.component';
+
+describe('WidgetRegistration2Component', () => {
+  let component: WidgetRegistration2Component;
+  let fixture: ComponentFixture<WidgetRegistration2Component>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ WidgetRegistration2Component ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(WidgetRegistration2Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

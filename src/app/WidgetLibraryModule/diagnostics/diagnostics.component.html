@@ -1,0 +1,115 @@
+<tabset>
+    <tab heading = "Individual usage Statistics">
+        <table class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Key</th>
+              <th>Count</th>
+              <th>Last</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let stat of userStatistics.widgetUsageStatistics">
+              <td>widget usage</td>
+              <td>{{stat.key}}</td>
+              <td>{{stat.count}}</td>
+              <td>{{stat.lastUsage}}</td>
+            </tr>
+
+            <tr *ngFor="let stat of userStatistics.applicationUsageStatistics">
+              <td>app counters</td>
+              <td>{{stat.key}}</td>
+              <td>{{stat.count}}</td>
+              <td>{{stat.lastUsage}}</td>
+            </tr>
+
+            <tr *ngFor="let stat of userStatistics.sideNavUsageStatistics">
+              <td>side nav usage</td>
+              <td>{{stat.key}}</td>
+              <td>{{stat.count}}</td>
+              <td>{{stat.lastUsage}}</td>
+            </tr>
+
+             <tr *ngFor="let stat of userStatistics.dataPolicyUsageStatistics">
+              <td>data policy</td>
+              <td>{{stat.key}}</td>
+              <td>{{stat.count}}</td>
+              <td>{{stat.lastUsage}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+    </tab>
+    <tab heading="Settings">
+      <table class="table table-sm table-striped">
+        <tr>
+          <td>inProduction</td>
+          <td>{{inProduction}}</td>
+        </tr>
+        <tr>
+          <td>RedirectUrlSuffix</td>
+          <td>{{RedirectUrlSuffix}}</td>
+        </tr>
+        <tr>
+          <td>WebApiUrl</td>
+          <td>{{WebApiUrl}}</td>
+        </tr>
+      </table>
+    </tab>
+
+    <tab heading="Activity Logs">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>ms</th>
+            <th>message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of entries" [ngClass]="getLogClass(log.level)">
+            <td style="padding: 2px">{{log.milliseconds}}</td>
+            <td style="padding: 2px">{{log.Message}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+    <tab heading="Server cache hit logs">
+      <app-server-hit-logs></app-server-hit-logs>
+    </tab>
+    <tab heading="usage logs">
+
+      <button *ngFor="let nv of buttons"  class="btn {{IsActive(nv.value)}}" (click)="SelectStatsType(nv.value)">{{nv.name}}</button>
+
+      <table class="table table-sm table-striped">
+        <thead><tr> <th>Item</th><th>Count</th> </tr></thead>
+        <tbody>
+          <tr *ngFor="let ni of aggregateStats">
+            <td>{{ni.name}}</td>
+            <td>{{ni.index}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+    <tab heading="all user counts">
+
+
+      <button *ngFor="let nv of buttons"  class="btn {{IsActive(nv.value)}}" (click)="SelectStatsType(nv.value)">{{nv.name}}</button>
+
+      <input style="width: 70%;" type="text" class="form-control" [ngModel]="userFilter" (ngModelChange)="onFilterChange($event)" placeholder="User filter">
+
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th *ngFor="let column of userDataTable.columns">{{column}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of userDataTable.data">
+            <td *ngFor="let cell of row">{{cell}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </tab>
+</tabset>

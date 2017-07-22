@@ -1,0 +1,44 @@
+<!--
+this.matchingDataPolicy.supportGroup;
+this.matchingDataPolicy.supportMessage;
+this.matchingDataPolicy.supportNameList;
+this.parentConfig.supportMessage;
+-->
+
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr class="table-danger">
+          <td colspan="2">Data Retrieval Error</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="dataRequestError.widgetName">
+          <td>Widget</td>
+          <td>{{dataRequestError.widgetName}}</td>
+        </tr>
+        <tr *ngIf="dataRequestError.ErrorMessage">
+          <td>Error Message</td>
+          <td>{{dataRequestError.ErrorMessage}}</td>
+        </tr>
+        <tr *ngIf="dataRequestError.dataPolicy">
+          <td>data policy</td>
+          <td>{{dataRequestError.dataPolicy}}</td>
+        </tr>
+        <tr *ngIf="dataRequestError.RequestKey">
+          <td>data key</td>
+          <td>{{dataRequestError.RequestKey}}</td>
+        </tr>
+        <tr *ngIf="matchingDataPolicy.supportGroup">
+          <td>Data Support Group</td>
+          <td>{{matchingDataPolicy.supportGroup}}</td>
+        </tr>
+        <tr *ngIf="matchingDataPolicy.supportMessage">
+          <td>Data support Message</td>
+          <td>{{matchingDataPolicy.supportMessage}}</td>
+        </tr>
+        <tr *ngIf="matchingDataPolicy.supportNameList">
+          <td>Contact List</td>
+          <td>{{matchingDataPolicy.supportNameList}}</td>
+        </tr>
+      </tbody>
+    </table>

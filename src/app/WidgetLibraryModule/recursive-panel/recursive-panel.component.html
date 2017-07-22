@@ -1,0 +1,31 @@
+<div class="leaf" *ngIf="levelsBelow > 0; else lastLevel">
+
+    <!-- show children as hierarchy -->
+
+    <div class="leaf" *ngFor="let gc of GroupedKeyList | groupKeyFilter; let i = index">
+            <span>
+                <h6><a (click)="navigate(gc.context)">{{gc.name}}</a></h6>
+                <!--
+                <a data-toggle="collapse" href="#{{gc.key}}" aria-expanded="false">
+                    <i class="fa fa-arrows-v"></i>
+                </a>
+                <div class="pull-right" *ngIf="topLevel == true && i == 0">
+                    <a (click)="toggleExpand()" href="#{{gc.key}}"> <i class="fa fa-arrows-v"></i> </a>
+                </div> -->
+            </span>
+         <!-- <div id="{{gc.key}}" class="{{toggleState}}"> -->
+        <div id="{{gc.key}}">
+            <div class="leaf" >
+                <!-- We need to drill down recursively to the next level -->
+                <app-recursive-panel *ngIf="levelsBelow > 0" [additionalContext]="additionalContext" [GroupedKeyList]="gc.children" [levelsBelow]="levelsBelow-1"
+                    [toggleState]="toggleState" [topLevel]="false"></app-recursive-panel>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #lastLevel>
+<div class="leaf" *ngFor="let gc of GroupedKeyList | groupKeyFilter">
+    <a (click)="navigate(gc.context)">{{gc.name}}</a>
+    <span class="badge">{{gc.badge}}</span>
+</div>
+</ng-template>

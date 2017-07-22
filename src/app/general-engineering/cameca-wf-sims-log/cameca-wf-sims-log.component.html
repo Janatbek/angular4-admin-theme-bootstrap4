@@ -1,0 +1,424 @@
+
+<div *ngIf="docs; else loading">
+  <div>
+    Search for anything or "all" for all logs (at least 3 characters):
+    <input type="text"
+    (input)="filterDocs($event)">
+  </div>
+
+   <div *ngIf="filteredDocs?.length > 0" class="row">
+    <div *ngFor="let doc of filteredDocs">
+      <button type="button" class="btn" style="margin-bottom: 2px"
+        (click)="populateForm(doc.JobNumber)">{{doc.JobNumber}}</button>
+    </div>
+  </div>
+
+  <h1>Cameca WF SIMS Analysis Log</h1>
+  <form (ngSubmit)="saveForm(form.value, form.valid)" #form="ngForm" novalidate>
+    <div class="row">
+      <button type="button" (click)="clearForm()">New Form</button>
+      <button [disabled]="form.invalid" type="submit">Save Form</button>
+      <div *ngIf="justSaved">Saved!</div>
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        * = Required Fields
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        Date In:*
+        <input type="text"
+        name="DateIn"
+        #DateIn="ngModel"
+        required
+        [ngModel]="currentDoc?.DateIn">
+        <div *ngIf="DateIn.errors?.required && DateIn.dirty" class="error">
+          Date In is required.
+        </div>
+      </div>
+
+      <div class="cell-with-padding">
+        Date Out:*
+        <input type="text"
+        name="DateOut"
+        [ngModel]="currentDoc?.DateOut">
+      </div>
+      <div class="cell">
+        Analyst:*
+        <input type="text"
+        name="Analyst"
+        required
+        #Analyst="ngModel"
+        [ngModel]="currentDoc?.Analyst">
+        <div *ngIf="Analyst.errors?.required && Analyst.dirty" class="error">
+          Analyst is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        Time In:*
+        <input type="text"
+        name="TimeIn"
+        required
+        #TimeIn="ngModel"
+        [ngModel]="currentDoc?.TimeIn">
+        <div *ngIf="TimeIn.errors?.required && TimeIn.dirty" class="error">
+          Time In is required.
+        </div>
+      </div>
+      <div class="cell-with-padding">
+        Time Out:*
+        <input type="text"
+        name="TimeOut"
+        [ngModel]="currentDoc?.TimeOut">
+      </div>
+      <div class="cell">
+        Total Inst. Time:*
+        <input type="text"
+        name="TotalInstTime"
+        [ngModel]="currentDoc?.TotalInstTime">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        Job #:*
+        <input type="text"
+        name="JobNumber"
+        required
+        #JobNumber="ngModel"
+        [ngModel]="currentDoc?.JobNumber">
+        <div *ngIf="JobNumber.errors?.required && JobNumber.dirty" class="error">
+          Job # is required.
+        </div>
+      </div>
+      <div class="cell">
+        Reference Job #:
+        <input type="text"
+        name="ReferenceJobNumber"
+        [ngModel]="currentDoc?.ReferenceJobNumber">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        Report Time (hrs):*
+        <input type="text"
+        name="ReportTime"
+        [ngModel]="currentDoc?.ReportTime">
+      </div>
+      <div class="cell">
+        Requestor:*
+        <input type="text"
+        name="Requestor"
+        required
+        #Requestor="ngModel"
+        [ngModel]="currentDoc?.Requestor">
+        <div *ngIf="Requestor.errors?.required && Requestor.dirty" class="error">
+          Requestor is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        Source:
+        <select name="Source"
+        (change)="setAngleForSource($event)"
+        [ngModel]="currentDoc?.Source">
+          <option value="Cs">Cs</option>
+          <option value="O2">O2</option>
+        </select>
+      </div>
+      <div class="cell">
+        Angle:*
+        <select
+        name="Angle"
+        required
+        #Angle="ngModel"
+        [ngModel]="currentDoc?.Angle">
+          <option value="36">36</option>
+          <option value="60">60</option>
+        </select>
+        <div *ngIf="Angle.errors?.required && Angle.dirty" class="error">
+          Angle is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="cell">
+        I. B. Current (nA):*
+        <input type="text"
+        name="IBCurrent"
+        required
+        #IBCurrent="ngModel"
+        [ngModel]="currentDoc?.IBCurrent">
+        <div *ngIf="IBCurrent.errors?.required && IBCurrent.dirty" class="error">
+          I.B. Current is required.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        Primary (eV):*
+        <input type="text"
+        name="Primary"
+        required
+        #Primary="ngModel"
+        [ngModel]="currentDoc?.Primary">
+        <div *ngIf="Primary.errors?.required && Primary.dirty" class="error">
+          Primary is required.
+        </div>
+      </div>
+
+      <div class="cell-with-padding">
+        Secondary (eV):*
+        <input type="text"
+        name="Secondary"
+        required
+        #Secondary="ngModel"
+        [ngModel]="currentDoc?.Secondary">
+        <div *ngIf="Secondary.errors?.required && Secondary.dirty" class="error">
+          Secondary is required.
+        </div>
+      </div>
+      <div class="cell-with-padding">
+        Float (eV):*
+        <input type="text"
+        name="Float"
+        required
+        #Float="ngModel"
+        [ngModel]="currentDoc?.Float">
+        <div *ngIf="Float.errors?.required && Float.dirty" class="error">
+          Float is required.
+        </div>
+      </div>
+      <div class="cell">
+        Impact (eV):*
+        <input type="text"
+        name="Impact"
+        required
+        #Impact="ngModel"
+        [ngModel]="currentDoc?.Impact">
+        <div *ngIf="Impact.errors?.required && Impact.dirty" class="error">
+          Impact is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="cell-with-padding">
+        Max Current (nA):*
+        <input type="text"
+        name="MaxCurrent"
+        required
+        #MaxCurrent="ngModel"
+        [ngModel]="currentDoc?.MaxCurrent">
+        <div *ngIf="MaxCurrent.errors?.required && MaxCurrent.dirty" class="error">
+          Max Current is required.
+        </div>
+      </div>
+      <div class="cell">
+        Main Vacuum Pressure (UHV1) (Torr):*
+        <input type="text"
+        name="MainVacuumPressure"
+        required
+        #MainVacuumPressure="ngModel"
+        [ngModel]="currentDoc?.MainVacuumPressure">
+        <div *ngIf="MainVacuumPressure.errors?.required && MainVacuumPressure.dirty" class="error">
+          Main Vacuum Pressure is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="bordered">
+      <div class="row">
+        <div class="cell-with-padding">
+          File Used:*
+          <textarea
+            name="FileUsed"
+            required
+            #FileUsed="ngModel"
+            [ngModel]="currentDoc?.FileUsed">
+          </textarea>
+          <div *ngIf="FileUsed.errors?.required && FileUsed.dirty" class="error">
+            File Used is required.
+          </div>
+        </div>
+
+        <div class="cell-with-padding">
+          Sample Description:*
+          <textarea
+            name="SampleDescription"
+            required
+            #SampleDescription="ngModel"
+            [ngModel]="currentDoc?.SampleDescription">
+          </textarea>
+          <div *ngIf="SampleDescription.errors?.required && SampleDescription.dirty" class="error">
+           Sample Description is required.
+          </div>
+        </div>
+
+        <div class="cell">
+          Purpose of Experiment:*
+          <textarea
+            name="PurposeOfExperiment"
+            required
+            #PurposeOfExperiment="ngModel"
+            [ngModel]="currentDoc?.PurposeOfExperiment">
+          </textarea>
+          <div *ngIf="PurposeOfExperiment.errors?.required && PurposeOfExperiment.dirty" class="error">
+            Purpose of Experiment is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="bordered">
+      <div class="row">
+        <div class="cell-with-padding">
+          FA:
+          <input type="text"
+          name="FA"
+          [ngModel]="currentDoc?.FA">
+        </div>
+        <div class="cell-with-padding">
+          CA:
+          <input type="text"
+          name="CA"
+          [ngModel]="currentDoc?.CA">
+        </div>
+        <div class="cell">
+          Max Area:
+          <input type="text"
+          name="MaxArea"
+          [ngModel]="currentDoc?.MaxArea">
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell-with-padding">
+          Energy Slits:
+          <input type="text"
+          name="EnergySlits"
+          [ngModel]="currentDoc?.EnergySlits">
+        </div>
+        <div class="cell-with-padding">
+          Entrance Slits:
+          <input type="text"
+          name="EntranceSlits"
+          [ngModel]="currentDoc?.EntranceSlits">
+        </div>
+        <div class="cell">
+          Exit Slits:
+          <input type="text"
+          name="ExitSlits"
+          [ngModel]="currentDoc?.ExitSlits">
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell-with-padding">
+          Mass Res:
+          <input type="text"
+          name="MassRes"
+          [ngModel]="currentDoc?.MassRes">
+        </div>
+        <div class="cell-with-padding">
+          Inte. Time:
+          <input type="text"
+          name="InteTime"
+          [ngModel]="currentDoc?.InteTime">
+        </div>
+        <div class="cell">
+          Wait Time:
+          <input type="text"
+          name="WaitTime"
+          [ngModel]="currentDoc?.WaitTime">
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell-with-padding">
+          Raster Size:
+          <input type="text"
+          name="RasterSize"
+          [ngModel]="currentDoc?.RasterSize">
+        </div>
+        <div class="cell-with-padding">
+          Neut:
+          <input type="text"
+          name="Neut"
+          [ngModel]="currentDoc?.Neut">
+        </div>
+        <div class="cell-with-padding">
+          Gating:
+          <input type="text"
+          name="Gating"
+          [ngModel]="currentDoc?.Gating">
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          Holder:*
+          <select
+          name="Holder"
+          required
+          #Holder="ngModel"
+          [ngModel]="currentDoc?.Holder">
+            <option value="Whole Wafer">Whole Wafer</option>
+            <option value="50 Window">50 Window</option>
+            <option value="Both">Both</option>
+          </select>
+          <div *ngIf="Holder.errors?.required && Holder.dirty" class="error">
+            Holder is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      File Prefix:
+      <input type="text"
+      name="FilePrefix"
+      [ngModel]="currentDoc?.FilePrefix">
+    </div>
+
+    <table style="width: 100%">
+      <tr>
+        <th>Chain Analysis No.</th>
+        <th>File No.</th>
+        <th>Comments (filetype, description)</th>
+        <th>RSF/S.R.</th>
+      </tr>
+      <tr ngModelGroup="BottomTable" *ngFor="let row of currentDoc?.BottomTable; index as i">
+        <td><input type="text"
+          name="{{i}}-ChainAnalysisNumber"
+          [ngModel]="row.ChainAnalysisNumber">
+        </td>
+        <td><input type="text"
+          name="{{i}}-FileNumber"
+          [ngModel]="row.FileNumber">
+        </td>
+        <td><input type="text"
+          name="{{i}}-Comments"
+          [ngModel]="row.Comments">
+        </td>
+        <td><input type="text"
+          name="{{i}}-RSF_SR"
+          [ngModel]="row.RSF_SR">
+        </td>
+      </tr>
+    </table>
+    <button (click)="addTableRow()" type="button" class="btn">Add Row</button>
+  </form>
+</div>
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

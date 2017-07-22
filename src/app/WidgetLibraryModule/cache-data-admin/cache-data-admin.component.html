@@ -1,0 +1,42 @@
+<table class="table table-sm table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Url</th>
+      <th>Minutes Remaining</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let status of managedCacheDataStatusList; let i=index">
+      <td>{{status[0]}}</td>
+      <td>{{status[1]}}</td>
+      <td [class]="GetClass(status)" >{{status[2]}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="UpdateForce(status[1])">Update</button>
+        <button *ngIf="isAdmin" type="button" class="btn btn-outline-primary btn-sm" (click)="ViewData(status[1])">View</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button type="button" class="btn btn-info btn-sm" (click)="Refresh()">Refresh</button>
+<button type="button" class="btn btn-info btn-sm" (click)="Update()">Update</button> any cache expiring in the next
+<input
+  name="minutesAhead" type="text" style="width: 50px" [(ngModel)]="minutesAhead"> minutes
+  <span *ngIf="updating" class="label label-warning">Updating... <fa [name]="'rocket'" [spin]=true></fa></span>
+
+  <div id="dataViewModal" tabindex="-1" role="dialog" class="modal fade">
+    <!-- modal-big  -->
+
+    <div class="modal-dialog modal-lg " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Cached Data: {{selectedKey}}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <app-data-set-table [dataset]="displayDataSet"></app-data-set-table>
+        </div>
+      </div>
+    </div>
+  </div>
